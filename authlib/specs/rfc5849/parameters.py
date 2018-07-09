@@ -67,8 +67,10 @@ def _append_params(oauth_params, params):
     .. _`3.5.3`: https://tools.ietf.org/html/rfc5849#section-3.5.3
 
     """
-    merged = list(params)
-    merged.extend(oauth_params)
+    merged = dict(params)
+    for v in oauth_params:
+        merged[v[0]] = v[1]
+    merged = list(merged.items())
     # The request URI / entity-body MAY include other request-specific
     # parameters, in which case, the protocol parameters SHOULD be appended
     # following the request-specific parameters, properly separated by an "&"
